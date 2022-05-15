@@ -24,14 +24,14 @@ Section "Gely" GELY_IDX
   createShortCut "$SMPROGRAMS\${APPNAME}\Uninstall.lnk" "$INSTDIR\uninstall.exe"
 
   # Firewall - remove rules (if exists)
-  SimpleFC::AdvRemoveRule "Gely incoming peers (TCP:30303)"
-  SimpleFC::AdvRemoveRule "Gely outgoing peers (TCP:30303)"
-  SimpleFC::AdvRemoveRule "Gely UDP discovery (UDP:30303)"
+  SimpleFC::AdvRemoveRule "Gely incoming peers (TCP:20202)"
+  SimpleFC::AdvRemoveRule "Gely outgoing peers (TCP:20202)"
+  SimpleFC::AdvRemoveRule "Gely UDP discovery (UDP:20202)"
 
   # Firewall - add rules
-  SimpleFC::AdvAddRule "Gely incoming peers (TCP:30303)" ""  6 1 1 2147483647 1 "$INSTDIR\gely.exe" "" "" "Elysium" 30303 "" "" ""
-  SimpleFC::AdvAddRule "Gely outgoing peers (TCP:30303)" ""  6 2 1 2147483647 1 "$INSTDIR\gely.exe" "" "" "Elysium" "" 30303 "" ""
-  SimpleFC::AdvAddRule "Gely UDP discovery (UDP:30303)" "" 17 2 1 2147483647 1 "$INSTDIR\gely.exe" "" "" "Elysium" "" 30303 "" ""
+  SimpleFC::AdvAddRule "Gely incoming peers (TCP:20202)" ""  6 1 1 2147483647 1 "$INSTDIR\gely.exe" "" "" "Elysium" 20202 "" "" ""
+  SimpleFC::AdvAddRule "Gely outgoing peers (TCP:20202)" ""  6 2 1 2147483647 1 "$INSTDIR\gely.exe" "" "" "Elysium" "" 20202 "" ""
+  SimpleFC::AdvAddRule "Gely UDP discovery (UDP:20202)" "" 17 2 1 2147483647 1 "$INSTDIR\gely.exe" "" "" "Elysium" "" 20202 "" ""
 
   # Set default IPC endpoint (https://github.com/elysiumchain/EIPs/issues/147)
   ${EnvVarUpdate} $0 "ELYSIUM_SOCKET" "R" "HKLM" "\\.\pipe\gely.ipc"

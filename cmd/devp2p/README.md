@@ -13,7 +13,7 @@ The `devp2p key ...` command family deals with node key files.
 
 Run `devp2p key generate mynode.key` to create a new node key in the `mynode.key` file.
 
-Run `devp2p key to-enode mynode.key -ip 127.0.0.1 -tcp 30303` to create an enode:// URL
+Run `devp2p key to-enode mynode.key -ip 127.0.0.1 -tcp 20202` to create an enode:// URL
 corresponding to the given node key and address information.
 
 ### Maintaining DNS Discovery Node Lists
@@ -113,13 +113,15 @@ To run the eth protocol test suite against your implementation, the node needs t
 1. initialize the gely node with the `genesis.json` file contained in the `testdata` directory
 2. import the `halfchain.rlp` file in the `testdata` directory
 3. run gely with the following flags:
+
 ```
 gely --datadir <datadir> --nodiscover --nat=none --networkid 19763 --verbosity 5
 ```
 
 Then, run the following command, replacing `<enode>` with the enode of the gely node:
- ```
- devp2p rlpx eth-test <enode> cmd/devp2p/internal/ethtest/testdata/chain.rlp cmd/devp2p/internal/ethtest/testdata/genesis.json
+
+```
+devp2p rlpx eth-test <enode> cmd/devp2p/internal/ethtest/testdata/chain.rlp cmd/devp2p/internal/ethtest/testdata/genesis.json
 ```
 
 Repeat the above process (re-initialising the node) in order to run the Eth Protocol test suite again.
@@ -130,8 +132,8 @@ The Eth66 test suite is also a conformance test suite for the eth 66 protocol ve
 To run the eth66 protocol test suite, initialize a gely node as described above and run the following command,
 replacing `<enode>` with the enode of the gely node:
 
- ```
- devp2p rlpx eth66-test <enode> cmd/devp2p/internal/ethtest/testdata/chain.rlp cmd/devp2p/internal/ethtest/testdata/genesis.json
+```
+devp2p rlpx eth66-test <enode> cmd/devp2p/internal/ethtest/testdata/chain.rlp cmd/devp2p/internal/ethtest/testdata/genesis.json
 ```
 
 [eth]: https://github.com/elysiumchain/devp2p/blob/master/caps/eth.md

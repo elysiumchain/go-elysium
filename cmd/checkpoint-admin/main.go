@@ -71,7 +71,7 @@ var (
 	}
 	nodeURLFlag = cli.StringFlag{
 		Name:  "rpc",
-		Value: "http://localhost:8545",
+		Value: "http://localhost:2022",
 		Usage: "The rpc endpoint of a local or remote gely node",
 	}
 	clefURLFlag = cli.StringFlag{

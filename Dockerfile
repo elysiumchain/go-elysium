@@ -17,7 +17,7 @@ FROM alpine:latest
 RUN apk add --no-cache ca-certificates
 COPY --from=builder /go-elysium/build/bin/gely /usr/local/bin/
 
-EXPOSE 8545 8546 30303 30303/udp
+EXPOSE 2022 2023 20202 20202/udp
 ENTRYPOINT ["gely"]
 
 # Add some metadata labels to help programatic image consumption
