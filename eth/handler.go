@@ -259,7 +259,7 @@ func newHandler(config *handlerConfig) (*handler, error) {
 			// entirely whenever the transition is started. But in order to
 			// handle the transition boundary reorg in the consensus-layer,
 			// the legacy blocks are still accepted, but only for the terminal
-			// pow blocks. Spec: https://github.com/elysiumchain/EIPs/blob/master/EIPS/eip-3675.md#halt-the-importing-of-pow-blocks
+			// pow blocks. Spec: https://github.com/ethereum/EIPs/blob/master/EIPS/eip-3675.md#halt-the-importing-of-pow-blocks
 			for i, block := range blocks {
 				ptd := h.chain.GetTd(block.ParentHash(), block.NumberU64()-1)
 				if ptd == nil {

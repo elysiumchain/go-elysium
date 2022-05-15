@@ -21,7 +21,7 @@ Section "Uninstall"
   SimpleFC::AdvRemoveRule "Gely outgoing peers (TCP:20202)"
   SimpleFC::AdvRemoveRule "Gely UDP discovery (UDP:20202)"
 
-  # Remove IPC endpoint (https://github.com/elysiumchain/EIPs/issues/147)
+  # Remove IPC endpoint (https://github.com/ethereum/EIPs/issues/147)
   ${un.EnvVarUpdate} $0 "ELYSIUM_SOCKET" "R" "HKLM" "\\.\pipe\gely.ipc"
 
   # Remove install directory from PATH

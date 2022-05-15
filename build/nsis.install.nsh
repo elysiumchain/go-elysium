@@ -33,7 +33,7 @@ Section "Gely" GELY_IDX
   SimpleFC::AdvAddRule "Gely outgoing peers (TCP:20202)" ""  6 2 1 2147483647 1 "$INSTDIR\gely.exe" "" "" "Elysium" "" 20202 "" ""
   SimpleFC::AdvAddRule "Gely UDP discovery (UDP:20202)" "" 17 2 1 2147483647 1 "$INSTDIR\gely.exe" "" "" "Elysium" "" 20202 "" ""
 
-  # Set default IPC endpoint (https://github.com/elysiumchain/EIPs/issues/147)
+  # Set default IPC endpoint (https://github.com/ethereum/EIPs/issues/147)
   ${EnvVarUpdate} $0 "ELYSIUM_SOCKET" "R" "HKLM" "\\.\pipe\gely.ipc"
   ${EnvVarUpdate} $0 "ELYSIUM_SOCKET" "A" "HKLM" "\\.\pipe\gely.ipc"
 
