@@ -1,25 +1,25 @@
-// Copyright 2020 The go-ethereum Authors
-// This file is part of the go-ethereum library.
+// Copyright 2020 The go-elysium Authors
+// This file is part of the go-elysium library.
 //
-// The go-ethereum library is free software: you can redistribute it and/or modify
+// The go-elysium library is free software: you can redistribute it and/or modify
 // it under the terms of the GNU Lesser General Public License as published by
 // the Free Software Foundation, either version 3 of the License, or
 // (at your option) any later version.
 //
-// The go-ethereum library is distributed in the hope that it will be useful,
+// The go-elysium library is distributed in the hope that it will be useful,
 // but WITHOUT ANY WARRANTY; without even the implied warranty of
 // MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the
 // GNU Lesser General Public License for more details.
 //
 // You should have received a copy of the GNU Lesser General Public License
-// along with the go-ethereum library. If not, see <http://www.gnu.org/licenses/>.
+// along with the go-elysium library. If not, see <http://www.gnu.org/licenses/>.
 
 package ethash
 
 import (
 	"math/big"
 
-	"github.com/ethereum/go-ethereum/core/types"
+	"github.com/elysiumchain/go-elysium/core/types"
 	"github.com/holiman/uint256"
 )
 
@@ -81,7 +81,7 @@ func CalcDifficultyFrontierU256(time uint64, parent *types.Header) *big.Int {
 // parent block's time and difficulty. The calculation uses the Homestead rules.
 func CalcDifficultyHomesteadU256(time uint64, parent *types.Header) *big.Int {
 	/*
-		https://github.com/ethereum/EIPs/blob/master/EIPS/eip-2.md
+		https://github.com/elysiumchain/EIPs/blob/master/EIPS/eip-2.md
 		Algorithm:
 		block_diff = pdiff + pdiff / 2048 * max(1 - (time - ptime) / 10, -99) + 2 ^ int((num / 100000) - 2))
 
@@ -137,7 +137,7 @@ func MakeDifficultyCalculatorU256(bombDelay *big.Int) func(time uint64, parent *
 	bombDelayFromParent := bombDelay.Uint64() - 1
 	return func(time uint64, parent *types.Header) *big.Int {
 		/*
-			https://github.com/ethereum/EIPs/issues/100
+			https://github.com/elysiumchain/EIPs/issues/100
 			pDiff = parent.difficulty
 			BLOCK_DIFF_FACTOR = 9
 			a = pDiff + (pDiff // BLOCK_DIFF_FACTOR) * adj_factor

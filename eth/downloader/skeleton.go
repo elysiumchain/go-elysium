@@ -1,18 +1,18 @@
-// Copyright 2021 The go-ethereum Authors
-// This file is part of the go-ethereum library.
+// Copyright 2021 The go-elysium Authors
+// This file is part of the go-elysium library.
 //
-// The go-ethereum library is free software: you can redistribute it and/or modify
+// The go-elysium library is free software: you can redistribute it and/or modify
 // it under the terms of the GNU Lesser General Public License as published by
 // the Free Software Foundation, either version 3 of the License, or
 // (at your option) any later version.
 //
-// The go-ethereum library is distributed in the hope that it will be useful,
+// The go-elysium library is distributed in the hope that it will be useful,
 // but WITHOUT ANY WARRANTY; without even the implied warranty of
 // MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the
 // GNU Lesser General Public License for more details.
 //
 // You should have received a copy of the GNU Lesser General Public License
-// along with the go-ethereum library. If not, see <http://www.gnu.org/licenses/>.
+// along with the go-elysium library. If not, see <http://www.gnu.org/licenses/>.
 
 package downloader
 
@@ -23,12 +23,12 @@ import (
 	"sort"
 	"time"
 
-	"github.com/ethereum/go-ethereum/common"
-	"github.com/ethereum/go-ethereum/core/rawdb"
-	"github.com/ethereum/go-ethereum/core/types"
-	"github.com/ethereum/go-ethereum/eth/protocols/eth"
-	"github.com/ethereum/go-ethereum/ethdb"
-	"github.com/ethereum/go-ethereum/log"
+	"github.com/elysiumchain/go-elysium/common"
+	"github.com/elysiumchain/go-elysium/core/rawdb"
+	"github.com/elysiumchain/go-elysium/core/types"
+	"github.com/elysiumchain/go-elysium/eth/protocols/eth"
+	"github.com/elysiumchain/go-elysium/ethdb"
+	"github.com/elysiumchain/go-elysium/log"
 )
 
 // scratchHeaders is the number of headers to store in a scratch space to allow
@@ -64,7 +64,7 @@ var errSyncMerged = errors.New("sync merged")
 var errSyncReorged = errors.New("sync reorged")
 
 // errTerminated is returned if the sync mechanism was terminated for this run of
-// the process. This is usually the case when Geth is shutting down and some events
+// the process. This is usually the case when Gely is shutting down and some events
 // might still be propagating.
 var errTerminated = errors.New("terminated")
 
@@ -159,14 +159,14 @@ type backfiller interface {
 // skeleton represents a header chain synchronized after the merge where blocks
 // aren't validated any more via PoW in a forward fashion, rather are dictated
 // and extended at the head via the beacon chain and backfilled on the original
-// Ethereum block sync protocol.
+// Elysium block sync protocol.
 //
 // Since the skeleton is grown backwards from head to genesis, it is handled as
 // a separate entity, not mixed in with the logical sequential transition of the
 // blocks. Once the skeleton is connected to an existing, validated chain, the
 // headers will be moved into the main downloader for filling and execution.
 //
-// Opposed to the original Ethereum block synchronization which is trustless (and
+// Opposed to the original Elysium block synchronization which is trustless (and
 // uses a master peer to minimize the attack surface), post-merge block sync starts
 // from a trusted head. As such, there is no need for a master peer any more and
 // headers can be requested fully concurrently (though some batches might be
@@ -175,7 +175,7 @@ type backfiller interface {
 // Although a skeleton is part of a sync cycle, it is not recreated, rather stays
 // alive throughout the lifetime of the downloader. This allows it to be extended
 // concurrently with the sync cycle, since extensions arrive from an API surface,
-// not from within (vs. legacy Ethereum sync).
+// not from within (vs. legacy Elysium sync).
 //
 // Since the skeleton tracks the entire header chain until it is consumed by the
 // forward block filling, it needs 0.5KB/block storage. At current mainnet sizes
@@ -242,7 +242,7 @@ func (s *skeleton) startup() {
 	for {
 		select {
 		case errc := <-s.terminate:
-			// No head was announced but Geth is shutting down
+			// No head was announced but Gely is shutting down
 			errc <- nil
 			return
 
@@ -288,7 +288,7 @@ func (s *skeleton) startup() {
 
 				default:
 					// Sync either successfully terminated or failed with an unhandled
-					// error. Abort and wait until Geth requests a termination.
+					// error. Abort and wait until Gely requests a termination.
 					errc := <-s.terminate
 					errc <- err
 					return

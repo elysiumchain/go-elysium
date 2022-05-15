@@ -23,10 +23,10 @@ dependencies:
 
 test:
   override:
-    # Build Geth and move into a known folder
-    - make geth
-    - cp ./build/bin/geth $HOME/geth
+    # Build Gely and move into a known folder
+    - make gely
+    - cp ./build/bin/gely $HOME/gely
 
     # Run hive and move all generated logs into the public artifacts folder
-    - (cd ~/.go_workspace/src/github.com/karalabe/hive && hive --docker-noshell --client=go-ethereum:local --override=$HOME/geth --test=. --sim=.)
+    - (cd ~/.go_workspace/src/github.com/karalabe/hive && hive --docker-noshell --client=go-elysium:local --override=$HOME/gely --test=. --sim=.)
     - cp -r ~/.go_workspace/src/github.com/karalabe/hive/workspace/logs/* $CIRCLE_ARTIFACTS
