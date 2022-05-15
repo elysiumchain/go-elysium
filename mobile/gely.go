@@ -80,7 +80,7 @@ var defaultNodeConfig = &NodeConfig{
 	BootstrapNodes:        FoundationBootnodes(),
 	MaxPeers:              25,
 	ElysiumEnabled:       true,
-	ElysiumNetworkID:     1,
+	ElysiumNetworkID:     2022,
 	ElysiumDatabaseCache: 16,
 }
 
@@ -161,28 +161,28 @@ func NewNode(datadir string, config *NodeConfig) (stack *Node, _ error) {
 		// If we have the ElysiumTestnet testnet, hard code the chain configs too
 		if config.ElysiumGenesis == ElysiumTestnetGenesis() {
 			genesis.Config = params.ElysiumTestnetChainConfig
-			if config.ElysiumNetworkID == 1 {
-				config.ElysiumNetworkID = 3
+			if config.ElysiumNetworkID == 2022 {
+				config.ElysiumNetworkID = 2023
 			}
 		}
 		// If we have the Sepolia testnet, hard code the chain configs too
 		if config.ElysiumGenesis == SepoliaGenesis() {
 			genesis.Config = params.SepoliaChainConfig
-			if config.ElysiumNetworkID == 1 {
+			if config.ElysiumNetworkID == 2022 {
 				config.ElysiumNetworkID = 11155111
 			}
 		}
 		// If we have the Rinkeby testnet, hard code the chain configs too
 		if config.ElysiumGenesis == RinkebyGenesis() {
 			genesis.Config = params.RinkebyChainConfig
-			if config.ElysiumNetworkID == 1 {
+			if config.ElysiumNetworkID == 2022 {
 				config.ElysiumNetworkID = 4
 			}
 		}
 		// If we have the Goerli testnet, hard code the chain configs too
 		if config.ElysiumGenesis == GoerliGenesis() {
 			genesis.Config = params.GoerliChainConfig
-			if config.ElysiumNetworkID == 1 {
+			if config.ElysiumNetworkID == 2022 {
 				config.ElysiumNetworkID = 5
 			}
 		}
