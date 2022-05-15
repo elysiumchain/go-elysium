@@ -32,9 +32,9 @@ func MainnetGenesis() string {
 	return ""
 }
 
-// RopstenGenesis returns the JSON spec to use for the Ropsten test network.
-func RopstenGenesis() string {
-	enc, err := json.Marshal(core.DefaultRopstenGenesisBlock())
+// ElysiumTestnetGenesis returns the JSON spec to use for the ElysiumTestnet test network.
+func ElysiumTestnetGenesis() string {
+	enc, err := json.Marshal(core.DefaultElysiumTestnetGenesisBlock())
 	if err != nil {
 		panic(err)
 	}

@@ -72,10 +72,10 @@ func TestCreation(t *testing.T) {
 				{20000000, ID{Hash: checksumToBytes(0x20c327fc), Next: 0}},        // Future Arrow Glacier block
 			},
 		},
-		// Ropsten test cases
+		// ElysiumTestnet test cases
 		{
-			params.RopstenChainConfig,
-			params.RopstenGenesisHash,
+			params.ElysiumTestnetChainConfig,
+			params.ElysiumTestnetGenesisHash,
 			[]testcase{
 				{0, ID{Hash: checksumToBytes(0x30c7ddbc), Next: 10}},              // Unsynced, last Frontier, Homestead and first Tangerine block
 				{9, ID{Hash: checksumToBytes(0x30c7ddbc), Next: 10}},              // Last Tangerine block
@@ -245,7 +245,7 @@ func TestValidation(t *testing.T) {
 		// Local is mainnet Arrow Glacier, far in the future. Remote announces Gopherium (non existing fork)
 		// at some future block 88888888, for itself, but past block for local. Local is incompatible.
 		//
-		// This case detects non-upgraded nodes with majority hash power (typical Ropsten mess).
+		// This case detects non-upgraded nodes with majority hash power (typical ElysiumTestnet mess).
 		{88888888, ID{Hash: checksumToBytes(0x20c327fc), Next: 88888888}, ErrLocalIncompatibleOrStale},
 
 		// Local is mainnet Byzantium. Remote is also in Byzantium, but announces Gopherium (non existing

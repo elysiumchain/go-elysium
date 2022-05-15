@@ -158,9 +158,9 @@ func NewNode(datadir string, config *NodeConfig) (stack *Node, _ error) {
 		if err := json.Unmarshal([]byte(config.ElysiumGenesis), genesis); err != nil {
 			return nil, fmt.Errorf("invalid genesis spec: %v", err)
 		}
-		// If we have the Ropsten testnet, hard code the chain configs too
-		if config.ElysiumGenesis == RopstenGenesis() {
-			genesis.Config = params.RopstenChainConfig
+		// If we have the ElysiumTestnet testnet, hard code the chain configs too
+		if config.ElysiumGenesis == ElysiumTestnetGenesis() {
+			genesis.Config = params.ElysiumTestnetChainConfig
 			if config.ElysiumNetworkID == 1 {
 				config.ElysiumNetworkID = 3
 			}

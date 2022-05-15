@@ -136,8 +136,8 @@ func CommitGenesisState(db ethdb.Database, hash common.Hash) error {
 		switch hash {
 		case params.MainnetGenesisHash:
 			genesis = DefaultGenesisBlock()
-		case params.RopstenGenesisHash:
-			genesis = DefaultRopstenGenesisBlock()
+		case params.ElysiumTestnetGenesisHash:
+			genesis = DefaultElysiumTestnetGenesisBlock()
 		case params.RinkebyGenesisHash:
 			genesis = DefaultRinkebyGenesisBlock()
 		case params.GoerliGenesisHash:
@@ -328,8 +328,8 @@ func (g *Genesis) configOrDefault(ghash common.Hash) *params.ChainConfig {
 		return g.Config
 	case ghash == params.MainnetGenesisHash:
 		return params.MainnetChainConfig
-	case ghash == params.RopstenGenesisHash:
-		return params.RopstenChainConfig
+	case ghash == params.ElysiumTestnetGenesisHash:
+		return params.ElysiumTestnetChainConfig
 	case ghash == params.SepoliaGenesisHash:
 		return params.SepoliaChainConfig
 	case ghash == params.RinkebyGenesisHash:
@@ -445,15 +445,15 @@ func DefaultGenesisBlock() *Genesis {
 	}
 }
 
-// DefaultRopstenGenesisBlock returns the Ropsten network genesis block.
-func DefaultRopstenGenesisBlock() *Genesis {
+// DefaultElysiumTestnetGenesisBlock returns the ElysiumTestnet network genesis block.
+func DefaultElysiumTestnetGenesisBlock() *Genesis {
 	return &Genesis{
-		Config:     params.RopstenChainConfig,
+		Config:     params.ElysiumTestnetChainConfig,
 		Nonce:      66,
 		ExtraData:  hexutil.MustDecode("0x3535353535353535353535353535353535353535353535353535353535353535"),
 		GasLimit:   16777216,
 		Difficulty: big.NewInt(1048576),
-		Alloc:      decodePrealloc(ropstenAllocData),
+		Alloc:      decodePrealloc(elysiumTestnetAllocData),
 	}
 }
 

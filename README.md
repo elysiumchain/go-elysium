@@ -132,18 +132,18 @@ called [_Rinkeby_](https://www.rinkeby.io) which is operated by members of the c
 $ gely --rinkeby console
 ```
 
-### Full node on the Ropsten test network
+### Full node on the ElysiumTestnet test network
 
-In addition to Görli and Rinkeby, Gely also supports the ancient Ropsten testnet. The
-Ropsten test network is based on the Ethash proof-of-work consensus algorithm. As such,
+In addition to Görli and Rinkeby, Gely also supports the ancient ElysiumTestnet testnet. The
+ElysiumTestnet test network is based on the Ethash proof-of-work consensus algorithm. As such,
 it has certain extra overhead and is more susceptible to reorganization attacks due to the
 network's low difficulty/security.
 
 ```shell
-$ gely --ropsten console
+$ gely --elysiumTestnet console
 ```
 
-_Note: Older Gely configurations store the Ropsten database in the `testnet` subdirectory._
+_Note: Older Gely configurations store the ElysiumTestnet database in the `testnet` subdirectory._
 
 ### Configuration
 

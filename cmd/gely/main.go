@@ -144,7 +144,7 @@ var (
 		utils.DeveloperFlag,
 		utils.DeveloperPeriodFlag,
 		utils.DeveloperGasLimitFlag,
-		utils.RopstenFlag,
+		utils.ElysiumTestnetFlag,
 		utils.SepoliaFlag,
 		utils.RinkebyFlag,
 		utils.GoerliFlag,
@@ -277,8 +277,8 @@ func main() {
 func prepare(ctx *cli.Context) {
 	// If we're running a known preset, log it for convenience.
 	switch {
-	case ctx.GlobalIsSet(utils.RopstenFlag.Name):
-		log.Info("Starting Gely on Ropsten testnet...")
+	case ctx.GlobalIsSet(utils.ElysiumTestnetFlag.Name):
+		log.Info("Starting Gely on ElysiumTestnet testnet...")
 
 	case ctx.GlobalIsSet(utils.SepoliaFlag.Name):
 		log.Info("Starting Gely on Sepolia testnet...")
@@ -298,7 +298,7 @@ func prepare(ctx *cli.Context) {
 	// If we're a full node on mainnet without --cache specified, bump default cache allowance
 	if ctx.GlobalString(utils.SyncModeFlag.Name) != "light" && !ctx.GlobalIsSet(utils.CacheFlag.Name) && !ctx.GlobalIsSet(utils.NetworkIdFlag.Name) {
 		// Make sure we're not on any supported preconfigured testnet either
-		if !ctx.GlobalIsSet(utils.RopstenFlag.Name) &&
+		if !ctx.GlobalIsSet(utils.ElysiumTestnetFlag.Name) &&
 			!ctx.GlobalIsSet(utils.SepoliaFlag.Name) &&
 			!ctx.GlobalIsSet(utils.RinkebyFlag.Name) &&
 			!ctx.GlobalIsSet(utils.GoerliFlag.Name) &&

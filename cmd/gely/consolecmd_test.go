@@ -39,10 +39,10 @@ const (
 // memory and disk IO. If the args don't set --datadir, the
 // child g gets a temporary data directory.
 func runMinimalGely(t *testing.T, args ...string) *testgely {
-	// --ropsten to make the 'writing genesis to disk' faster (no accounts)
+	// --elysiumTestnet to make the 'writing genesis to disk' faster (no accounts)
 	// --networkid=1337 to avoid cache bump
 	// --syncmode=full to avoid allocating fast sync bloom
-	allArgs := []string{"--ropsten", "--networkid", "1337", "--syncmode=full", "--port", "0",
+	allArgs := []string{"--elysiumTestnet", "--networkid", "1337", "--syncmode=full", "--port", "0",
 		"--nat", "none", "--nodiscover", "--maxpeers", "0", "--cache", "64"}
 	return runGely(t, append(allArgs, args...)...)
 }

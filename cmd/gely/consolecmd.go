@@ -126,14 +126,14 @@ func remoteConsole(ctx *cli.Context) error {
 			path = ctx.GlobalString(utils.DataDirFlag.Name)
 		}
 		if path != "" {
-			if ctx.GlobalBool(utils.RopstenFlag.Name) {
+			if ctx.GlobalBool(utils.ElysiumTestnetFlag.Name) {
 				// Maintain compatibility with older Gely configurations storing the
-				// Ropsten database in `testnet` instead of `ropsten`.
+				// ElysiumTestnet database in `testnet` instead of `elysiumTestnet`.
 				legacyPath := filepath.Join(path, "testnet")
 				if _, err := os.Stat(legacyPath); !os.IsNotExist(err) {
 					path = legacyPath
 				} else {
-					path = filepath.Join(path, "ropsten")
+					path = filepath.Join(path, "elysiumTestnet")
 				}
 			} else if ctx.GlobalBool(utils.RinkebyFlag.Name) {
 				path = filepath.Join(path, "rinkeby")

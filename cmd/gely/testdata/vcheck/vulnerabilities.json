@@ -55,7 +55,7 @@
     "name": "Gely DoS via MULMOD",
     "uid": "GELY-2020-04",
     "summary": "A denial-of-service issue can be used to crash Gely nodes during block processing",
-    "description": "Affected versions suffer from a vulnerability which can be exploited through the `MULMOD` operation, by specifying a modulo of `0`: `mulmod(a,b,0)`, causing a `panic` in the underlying library. \nThe crash was in the `uint256` library, where a buffer [underflowed](https://github.com/holiman/uint256/blob/4ce82e695c10ddad57215bdbeafb68b8c5df2c30/uint256.go#L442).\n\n\tif `d == 0`, `dLen` remains `0`\n\nand https://github.com/holiman/uint256/blob/4ce82e695c10ddad57215bdbeafb68b8c5df2c30/uint256.go#L451 will try to access index `[-1]`.\n\nThe `uint256` library was first merged in this [commit](https://github.com/elysiumchain/go-elysium/commit/cf6674539c589f80031f3371a71c6a80addbe454), on 2020-06-08. \nExploiting this vulnerabilty would cause all vulnerable nodes to drop off the network. \n\nThe issue was brought to our attention through a [bug report](https://github.com/elysiumchain/go-elysium/issues/21367), showing a `panic` occurring on sync from genesis on the Ropsten network.\n \nIt was estimated that the least obvious way to fix this would be to merge the fix into `uint256`, make a new release of that library and then update the gely-dependency.\n",
+    "description": "Affected versions suffer from a vulnerability which can be exploited through the `MULMOD` operation, by specifying a modulo of `0`: `mulmod(a,b,0)`, causing a `panic` in the underlying library. \nThe crash was in the `uint256` library, where a buffer [underflowed](https://github.com/holiman/uint256/blob/4ce82e695c10ddad57215bdbeafb68b8c5df2c30/uint256.go#L442).\n\n\tif `d == 0`, `dLen` remains `0`\n\nand https://github.com/holiman/uint256/blob/4ce82e695c10ddad57215bdbeafb68b8c5df2c30/uint256.go#L451 will try to access index `[-1]`.\n\nThe `uint256` library was first merged in this [commit](https://github.com/elysiumchain/go-elysium/commit/cf6674539c589f80031f3371a71c6a80addbe454), on 2020-06-08. \nExploiting this vulnerabilty would cause all vulnerable nodes to drop off the network. \n\nThe issue was brought to our attention through a [bug report](https://github.com/elysiumchain/go-elysium/issues/21367), showing a `panic` occurring on sync from genesis on the ElysiumTestnet network.\n \nIt was estimated that the least obvious way to fix this would be to merge the fix into `uint256`, make a new release of that library and then update the gely-dependency.\n",
     "links": [
       "https://blog.ethereum.org/2020/11/12/gely_security_release/",
       "https://github.com/elysiumchain/go-elysium/security/advisories/GHSA-jm5c-rv3w-w83m",
@@ -108,7 +108,7 @@
     "description": "At (or around) August 4, Elysium will undergo a technical upgrade called 'London'. Clients not upgraded will fail to progress on the canonical chain.",
     "links": [
       "https://github.com/elysiumchain/eth1.0-specs/blob/master/network-upgrades/mainnet-upgrades/london.md",
-      "https://notes.ethereum.org/@timbeiko/ropsten-postmortem"
+      "https://notes.ethereum.org/@timbeiko/elysiumTestnet-postmortem"
     ],
     "introduced": "v1.10.1",
     "fixed": "v1.10.6",
