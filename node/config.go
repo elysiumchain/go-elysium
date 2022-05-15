@@ -1,18 +1,18 @@
-// Copyright 2014 The go-ethereum Authors
-// This file is part of the go-ethereum library.
+// Copyright 2014 The go-elysium Authors
+// This file is part of the go-elysium library.
 //
-// The go-ethereum library is free software: you can redistribute it and/or modify
+// The go-elysium library is free software: you can redistribute it and/or modify
 // it under the terms of the GNU Lesser General Public License as published by
 // the Free Software Foundation, either version 3 of the License, or
 // (at your option) any later version.
 //
-// The go-ethereum library is distributed in the hope that it will be useful,
+// The go-elysium library is distributed in the hope that it will be useful,
 // but WITHOUT ANY WARRANTY; without even the implied warranty of
 // MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the
 // GNU Lesser General Public License for more details.
 //
 // You should have received a copy of the GNU Lesser General Public License
-// along with the go-ethereum library. If not, see <http://www.gnu.org/licenses/>.
+// along with the go-elysium library. If not, see <http://www.gnu.org/licenses/>.
 
 package node
 
@@ -26,12 +26,12 @@ import (
 	"strings"
 	"sync"
 
-	"github.com/ethereum/go-ethereum/common"
-	"github.com/ethereum/go-ethereum/crypto"
-	"github.com/ethereum/go-ethereum/log"
-	"github.com/ethereum/go-ethereum/p2p"
-	"github.com/ethereum/go-ethereum/p2p/enode"
-	"github.com/ethereum/go-ethereum/rpc"
+	"github.com/elysiumchain/go-elysium/common"
+	"github.com/elysiumchain/go-elysium/crypto"
+	"github.com/elysiumchain/go-elysium/log"
+	"github.com/elysiumchain/go-elysium/p2p"
+	"github.com/elysiumchain/go-elysium/p2p/enode"
+	"github.com/elysiumchain/go-elysium/rpc"
 )
 
 const (
@@ -48,7 +48,7 @@ const (
 // all registered services.
 type Config struct {
 	// Name sets the instance name of the node. It must not contain the / character and is
-	// used in the devp2p node identifier. The instance name of geth is "geth". If no
+	// used in the devp2p node identifier. The instance name of gely is "gely". If no
 	// value is specified, the basename of the current executable is used.
 	Name string `toml:"-"`
 
@@ -197,7 +197,7 @@ type Config struct {
 
 	staticNodesWarning     bool
 	trustedNodesWarning    bool
-	oldGethResourceWarning bool
+	oldGelyResourceWarning bool
 
 	// AllowUnprotectedTxs allows non EIP-155 protected transactions to be send over RPC.
 	AllowUnprotectedTxs bool `toml:",omitempty"`
@@ -290,9 +290,9 @@ func (c *Config) ExtRPCEnabled() bool {
 // NodeName returns the devp2p node identifier.
 func (c *Config) NodeName() string {
 	name := c.name()
-	// Backwards compatibility: previous versions used title-cased "Geth", keep that.
-	if name == "geth" || name == "geth-testnet" {
-		name = "Geth"
+	// Backwards compatibility: previous versions used title-cased "Gely", keep that.
+	if name == "gely" || name == "gely-testnet" {
+		name = "Gely"
 	}
 	if c.UserIdent != "" {
 		name += "/" + c.UserIdent
@@ -316,8 +316,8 @@ func (c *Config) name() string {
 	return c.Name
 }
 
-// These resources are resolved differently for "geth" instances.
-var isOldGethResource = map[string]bool{
+// These resources are resolved differently for "gely" instances.
+var isOldGelyResource = map[string]bool{
 	"chaindata":          true,
 	"nodes":              true,
 	"nodekey":            true,
@@ -334,15 +334,15 @@ func (c *Config) ResolvePath(path string) string {
 		return ""
 	}
 	// Backwards-compatibility: ensure that data directory files created
-	// by geth 1.4 are used if they exist.
-	if warn, isOld := isOldGethResource[path]; isOld {
+	// by gely 1.4 are used if they exist.
+	if warn, isOld := isOldGelyResource[path]; isOld {
 		oldpath := ""
-		if c.name() == "geth" {
+		if c.name() == "gely" {
 			oldpath = filepath.Join(c.DataDir, path)
 		}
 		if oldpath != "" && common.FileExist(oldpath) {
 			if warn {
-				c.warnOnce(&c.oldGethResourceWarning, "Using deprecated resource file %s, please move this file to the 'geth' subdirectory of datadir.", oldpath)
+				c.warnOnce(&c.oldGelyResourceWarning, "Using deprecated resource file %s, please move this file to the 'gely' subdirectory of datadir.", oldpath)
 			}
 			return oldpath
 		}
@@ -470,7 +470,7 @@ func getKeyStoreDir(conf *Config) (string, bool, error) {
 	isEphemeral := false
 	if keydir == "" {
 		// There is no datadir.
-		keydir, err = ioutil.TempDir("", "go-ethereum-keystore")
+		keydir, err = ioutil.TempDir("", "go-elysium-keystore")
 		isEphemeral = true
 	}
 

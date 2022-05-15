@@ -1,18 +1,18 @@
-// Copyright 2015 The go-ethereum Authors
-// This file is part of the go-ethereum library.
+// Copyright 2015 The go-elysium Authors
+// This file is part of the go-elysium library.
 //
-// The go-ethereum library is free software: you can redistribute it and/or modify
+// The go-elysium library is free software: you can redistribute it and/or modify
 // it under the terms of the GNU Lesser General Public License as published by
 // the Free Software Foundation, either version 3 of the License, or
 // (at your option) any later version.
 //
-// The go-ethereum library is distributed in the hope that it will be useful,
+// The go-elysium library is distributed in the hope that it will be useful,
 // but WITHOUT ANY WARRANTY; without even the implied warranty of
 // MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the
 // GNU Lesser General Public License for more details.
 //
 // You should have received a copy of the GNU Lesser General Public License
-// along with the go-ethereum library. If not, see <http://www.gnu.org/licenses/>.
+// along with the go-elysium library. If not, see <http://www.gnu.org/licenses/>.
 
 package runtime
 
@@ -21,12 +21,12 @@ import (
 	"math/big"
 	"time"
 
-	"github.com/ethereum/go-ethereum/common"
-	"github.com/ethereum/go-ethereum/core/rawdb"
-	"github.com/ethereum/go-ethereum/core/state"
-	"github.com/ethereum/go-ethereum/core/vm"
-	"github.com/ethereum/go-ethereum/crypto"
-	"github.com/ethereum/go-ethereum/params"
+	"github.com/elysiumchain/go-elysium/common"
+	"github.com/elysiumchain/go-elysium/core/rawdb"
+	"github.com/elysiumchain/go-elysium/core/state"
+	"github.com/elysiumchain/go-elysium/core/vm"
+	"github.com/elysiumchain/go-elysium/crypto"
+	"github.com/elysiumchain/go-elysium/params"
 )
 
 // Config is a basic type specifying certain configuration flags for running
@@ -53,7 +53,7 @@ type Config struct {
 func setDefaults(cfg *Config) {
 	if cfg.ChainConfig == nil {
 		cfg.ChainConfig = &params.ChainConfig{
-			ChainID:             big.NewInt(1),
+			ChainID:             big.NewInt(2022),
 			HomesteadBlock:      new(big.Int),
 			DAOForkBlock:        new(big.Int),
 			DAOForkSupport:      false,

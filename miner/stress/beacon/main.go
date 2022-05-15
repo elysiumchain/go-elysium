@@ -1,18 +1,18 @@
-// Copyright 2021 The go-ethereum Authors
-// This file is part of the go-ethereum library.
+// Copyright 2021 The go-elysium Authors
+// This file is part of the go-elysium library.
 //
-// The go-ethereum library is free software: you can redistribute it and/or modify
+// The go-elysium library is free software: you can redistribute it and/or modify
 // it under the terms of the GNU Lesser General Public License as published by
 // the Free Software Foundation, either version 3 of the License, or
 // (at your option) any later version.
 //
-// The go-ethereum library is distributed in the hope that it will be useful,
+// The go-elysium library is distributed in the hope that it will be useful,
 // but WITHOUT ANY WARRANTY; without even the implied warranty of
 // MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the
 // GNU Lesser General Public License for more details.
 //
 // You should have received a copy of the GNU Lesser General Public License
-// along with the go-ethereum library. If not, see <http://www.gnu.org/licenses/>.
+// along with the go-elysium library. If not, see <http://www.gnu.org/licenses/>.
 
 // This file contains a miner stress test for the eth1/2 transition
 package main
@@ -27,26 +27,26 @@ import (
 	"path/filepath"
 	"time"
 
-	"github.com/ethereum/go-ethereum/accounts/keystore"
-	"github.com/ethereum/go-ethereum/common"
-	"github.com/ethereum/go-ethereum/common/fdlimit"
-	"github.com/ethereum/go-ethereum/consensus/ethash"
-	"github.com/ethereum/go-ethereum/core"
-	"github.com/ethereum/go-ethereum/core/beacon"
-	"github.com/ethereum/go-ethereum/core/types"
-	"github.com/ethereum/go-ethereum/crypto"
-	"github.com/ethereum/go-ethereum/eth"
-	ethcatalyst "github.com/ethereum/go-ethereum/eth/catalyst"
-	"github.com/ethereum/go-ethereum/eth/downloader"
-	"github.com/ethereum/go-ethereum/eth/ethconfig"
-	"github.com/ethereum/go-ethereum/les"
-	lescatalyst "github.com/ethereum/go-ethereum/les/catalyst"
-	"github.com/ethereum/go-ethereum/log"
-	"github.com/ethereum/go-ethereum/miner"
-	"github.com/ethereum/go-ethereum/node"
-	"github.com/ethereum/go-ethereum/p2p"
-	"github.com/ethereum/go-ethereum/p2p/enode"
-	"github.com/ethereum/go-ethereum/params"
+	"github.com/elysiumchain/go-elysium/accounts/keystore"
+	"github.com/elysiumchain/go-elysium/common"
+	"github.com/elysiumchain/go-elysium/common/fdlimit"
+	"github.com/elysiumchain/go-elysium/consensus/ethash"
+	"github.com/elysiumchain/go-elysium/core"
+	"github.com/elysiumchain/go-elysium/core/beacon"
+	"github.com/elysiumchain/go-elysium/core/types"
+	"github.com/elysiumchain/go-elysium/crypto"
+	"github.com/elysiumchain/go-elysium/eth"
+	ethcatalyst "github.com/elysiumchain/go-elysium/eth/catalyst"
+	"github.com/elysiumchain/go-elysium/eth/downloader"
+	"github.com/elysiumchain/go-elysium/eth/ethconfig"
+	"github.com/elysiumchain/go-elysium/les"
+	lescatalyst "github.com/elysiumchain/go-elysium/les/catalyst"
+	"github.com/elysiumchain/go-elysium/log"
+	"github.com/elysiumchain/go-elysium/miner"
+	"github.com/elysiumchain/go-elysium/node"
+	"github.com/elysiumchain/go-elysium/p2p"
+	"github.com/elysiumchain/go-elysium/p2p/enode"
+	"github.com/elysiumchain/go-elysium/params"
 )
 
 type nodetype int
@@ -93,9 +93,9 @@ type ethNode struct {
 	stack      *node.Node
 	enode      *enode.Node
 	api        *ethcatalyst.ConsensusAPI
-	ethBackend *eth.Ethereum
+	ethBackend *eth.Elysium
 	lapi       *lescatalyst.ConsensusAPI
-	lesBackend *les.LightEthereum
+	lesBackend *les.LightElysium
 }
 
 func newNode(typ nodetype, genesis *core.Genesis, enodes []*enode.Node) *ethNode {
@@ -104,8 +104,8 @@ func newNode(typ nodetype, genesis *core.Genesis, enodes []*enode.Node) *ethNode
 		api        *ethcatalyst.ConsensusAPI
 		lapi       *lescatalyst.ConsensusAPI
 		stack      *node.Node
-		ethBackend *eth.Ethereum
-		lesBackend *les.LightEthereum
+		ethBackend *eth.Elysium
+		lesBackend *les.LightElysium
 	)
 	// Start the node and wait until it's up
 	if typ == eth2LightClient {
@@ -394,7 +394,7 @@ func main() {
 	// Pre-generate the ethash mining DAG so we don't race
 	ethash.MakeDataset(1, filepath.Join(os.Getenv("HOME"), ".ethash"))
 
-	// Create an Ethash network based off of the Ropsten config
+	// Create an Ethash network based off of the ElysiumTestnet config
 	genesis := makeGenesis(faucets)
 	manager := newNodeManager(genesis)
 	defer manager.shutdown()
@@ -442,7 +442,7 @@ func main() {
 // makeGenesis creates a custom Ethash genesis block based on some pre-defined
 // faucet accounts.
 func makeGenesis(faucets []*ecdsa.PrivateKey) *core.Genesis {
-	genesis := core.DefaultRopstenGenesisBlock()
+	genesis := core.DefaultElysiumTestnetGenesisBlock()
 	genesis.Difficulty = params.MinimumDifficulty
 	genesis.GasLimit = 25000000
 
@@ -459,12 +459,12 @@ func makeGenesis(faucets []*ecdsa.PrivateKey) *core.Genesis {
 	return genesis
 }
 
-func makeFullNode(genesis *core.Genesis) (*node.Node, *eth.Ethereum, *ethcatalyst.ConsensusAPI, error) {
-	// Define the basic configurations for the Ethereum node
+func makeFullNode(genesis *core.Genesis) (*node.Node, *eth.Elysium, *ethcatalyst.ConsensusAPI, error) {
+	// Define the basic configurations for the Elysium node
 	datadir, _ := ioutil.TempDir("", "")
 
 	config := &node.Config{
-		Name:    "geth",
+		Name:    "gely",
 		Version: params.Version,
 		DataDir: datadir,
 		P2P: p2p.Config{
@@ -474,7 +474,7 @@ func makeFullNode(genesis *core.Genesis) (*node.Node, *eth.Ethereum, *ethcatalys
 		},
 		UseLightweightKDF: true,
 	}
-	// Create the node and configure a full Ethereum node on it
+	// Create the node and configure a full Elysium node on it
 	stack, err := node.New(config)
 	if err != nil {
 		return nil, nil, nil, err
@@ -510,12 +510,12 @@ func makeFullNode(genesis *core.Genesis) (*node.Node, *eth.Ethereum, *ethcatalys
 	return stack, ethBackend, ethcatalyst.NewConsensusAPI(ethBackend), err
 }
 
-func makeLightNode(genesis *core.Genesis) (*node.Node, *les.LightEthereum, *lescatalyst.ConsensusAPI, error) {
-	// Define the basic configurations for the Ethereum node
+func makeLightNode(genesis *core.Genesis) (*node.Node, *les.LightElysium, *lescatalyst.ConsensusAPI, error) {
+	// Define the basic configurations for the Elysium node
 	datadir, _ := ioutil.TempDir("", "")
 
 	config := &node.Config{
-		Name:    "geth",
+		Name:    "gely",
 		Version: params.Version,
 		DataDir: datadir,
 		P2P: p2p.Config{
@@ -525,7 +525,7 @@ func makeLightNode(genesis *core.Genesis) (*node.Node, *les.LightEthereum, *lesc
 		},
 		UseLightweightKDF: true,
 	}
-	// Create the node and configure a full Ethereum node on it
+	// Create the node and configure a full Elysium node on it
 	stack, err := node.New(config)
 	if err != nil {
 		return nil, nil, nil, err

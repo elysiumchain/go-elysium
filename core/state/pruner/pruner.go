@@ -1,18 +1,18 @@
-// Copyright 2020 The go-ethereum Authors
-// This file is part of the go-ethereum library.
+// Copyright 2020 The go-elysium Authors
+// This file is part of the go-elysium library.
 //
-// The go-ethereum library is free software: you can redistribute it and/or modify
+// The go-elysium library is free software: you can redistribute it and/or modify
 // it under the terms of the GNU Lesser General Public License as published by
 // the Free Software Foundation, either version 3 of the License, or
 // (at your option) any later version.
 //
-// The go-ethereum library is distributed in the hope that it will be useful,
+// The go-elysium library is distributed in the hope that it will be useful,
 // but WITHOUT ANY WARRANTY; without even the implied warranty of
 // MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the
 // GNU Lesser General Public License for more details.
 //
 // You should have received a copy of the GNU Lesser General Public License
-// along with the go-ethereum library. If not, see <http://www.gnu.org/licenses/>.
+// along with the go-elysium library. If not, see <http://www.gnu.org/licenses/>.
 
 package pruner
 
@@ -27,15 +27,15 @@ import (
 	"strings"
 	"time"
 
-	"github.com/ethereum/go-ethereum/common"
-	"github.com/ethereum/go-ethereum/core/rawdb"
-	"github.com/ethereum/go-ethereum/core/state/snapshot"
-	"github.com/ethereum/go-ethereum/core/types"
-	"github.com/ethereum/go-ethereum/crypto"
-	"github.com/ethereum/go-ethereum/ethdb"
-	"github.com/ethereum/go-ethereum/log"
-	"github.com/ethereum/go-ethereum/rlp"
-	"github.com/ethereum/go-ethereum/trie"
+	"github.com/elysiumchain/go-elysium/common"
+	"github.com/elysiumchain/go-elysium/core/rawdb"
+	"github.com/elysiumchain/go-elysium/core/state/snapshot"
+	"github.com/elysiumchain/go-elysium/core/types"
+	"github.com/elysiumchain/go-elysium/crypto"
+	"github.com/elysiumchain/go-elysium/ethdb"
+	"github.com/elysiumchain/go-elysium/log"
+	"github.com/elysiumchain/go-elysium/rlp"
+	"github.com/elysiumchain/go-elysium/trie"
 )
 
 const (
@@ -490,10 +490,10 @@ const warningLog = `
 WARNING!
 
 The clean trie cache is not found. Please delete it by yourself after the 
-pruning. Remember don't start the Geth without deleting the clean trie cache
+pruning. Remember don't start the Gely without deleting the clean trie cache
 otherwise the entire database may be damaged!
 
-Check the command description "geth snapshot prune-state --help" for more details.
+Check the command description "gely snapshot prune-state --help" for more details.
 `
 
 func deleteCleanTrieCache(path string) {

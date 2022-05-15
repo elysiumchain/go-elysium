@@ -1,18 +1,18 @@
-// Copyright 2015 The go-ethereum Authors
-// This file is part of the go-ethereum library.
+// Copyright 2015 The go-elysium Authors
+// This file is part of the go-elysium library.
 //
-// The go-ethereum library is free software: you can redistribute it and/or modify
+// The go-elysium library is free software: you can redistribute it and/or modify
 // it under the terms of the GNU Lesser General Public License as published by
 // the Free Software Foundation, either version 3 of the License, or
 // (at your option) any later version.
 //
-// The go-ethereum library is distributed in the hope that it will be useful,
+// The go-elysium library is distributed in the hope that it will be useful,
 // but WITHOUT ANY WARRANTY; without even the implied warranty of
 // MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the
 // GNU Lesser General Public License for more details.
 //
 // You should have received a copy of the GNU Lesser General Public License
-// along with the go-ethereum library. If not, see <http://www.gnu.org/licenses/>.
+// along with the go-elysium library. If not, see <http://www.gnu.org/licenses/>.
 
 package eth
 
@@ -28,53 +28,53 @@ import (
 	"strings"
 	"time"
 
-	"github.com/ethereum/go-ethereum/common"
-	"github.com/ethereum/go-ethereum/common/hexutil"
-	"github.com/ethereum/go-ethereum/core"
-	"github.com/ethereum/go-ethereum/core/rawdb"
-	"github.com/ethereum/go-ethereum/core/state"
-	"github.com/ethereum/go-ethereum/core/types"
-	"github.com/ethereum/go-ethereum/internal/ethapi"
-	"github.com/ethereum/go-ethereum/log"
-	"github.com/ethereum/go-ethereum/rlp"
-	"github.com/ethereum/go-ethereum/rpc"
-	"github.com/ethereum/go-ethereum/trie"
+	"github.com/elysiumchain/go-elysium/common"
+	"github.com/elysiumchain/go-elysium/common/hexutil"
+	"github.com/elysiumchain/go-elysium/core"
+	"github.com/elysiumchain/go-elysium/core/rawdb"
+	"github.com/elysiumchain/go-elysium/core/state"
+	"github.com/elysiumchain/go-elysium/core/types"
+	"github.com/elysiumchain/go-elysium/internal/ethapi"
+	"github.com/elysiumchain/go-elysium/log"
+	"github.com/elysiumchain/go-elysium/rlp"
+	"github.com/elysiumchain/go-elysium/rpc"
+	"github.com/elysiumchain/go-elysium/trie"
 )
 
-// PublicEthereumAPI provides an API to access Ethereum full node-related
+// PublicElysiumAPI provides an API to access Elysium full node-related
 // information.
-type PublicEthereumAPI struct {
-	e *Ethereum
+type PublicElysiumAPI struct {
+	e *Elysium
 }
 
-// NewPublicEthereumAPI creates a new Ethereum protocol API for full nodes.
-func NewPublicEthereumAPI(e *Ethereum) *PublicEthereumAPI {
-	return &PublicEthereumAPI{e}
+// NewPublicElysiumAPI creates a new Elysium protocol API for full nodes.
+func NewPublicElysiumAPI(e *Elysium) *PublicElysiumAPI {
+	return &PublicElysiumAPI{e}
 }
 
 // Etherbase is the address that mining rewards will be send to
-func (api *PublicEthereumAPI) Etherbase() (common.Address, error) {
+func (api *PublicElysiumAPI) Etherbase() (common.Address, error) {
 	return api.e.Etherbase()
 }
 
 // Coinbase is the address that mining rewards will be send to (alias for Etherbase)
-func (api *PublicEthereumAPI) Coinbase() (common.Address, error) {
+func (api *PublicElysiumAPI) Coinbase() (common.Address, error) {
 	return api.Etherbase()
 }
 
 // Hashrate returns the POW hashrate
-func (api *PublicEthereumAPI) Hashrate() hexutil.Uint64 {
+func (api *PublicElysiumAPI) Hashrate() hexutil.Uint64 {
 	return hexutil.Uint64(api.e.Miner().Hashrate())
 }
 
 // PublicMinerAPI provides an API to control the miner.
 // It offers only methods that operate on data that pose no security risk when it is publicly accessible.
 type PublicMinerAPI struct {
-	e *Ethereum
+	e *Elysium
 }
 
 // NewPublicMinerAPI create a new PublicMinerAPI instance.
-func NewPublicMinerAPI(e *Ethereum) *PublicMinerAPI {
+func NewPublicMinerAPI(e *Elysium) *PublicMinerAPI {
 	return &PublicMinerAPI{e}
 }
 
@@ -86,11 +86,11 @@ func (api *PublicMinerAPI) Mining() bool {
 // PrivateMinerAPI provides private RPC methods to control the miner.
 // These methods can be abused by external users and must be considered insecure for use by untrusted users.
 type PrivateMinerAPI struct {
-	e *Ethereum
+	e *Elysium
 }
 
 // NewPrivateMinerAPI create a new RPC service which controls the miner of this node.
-func NewPrivateMinerAPI(e *Ethereum) *PrivateMinerAPI {
+func NewPrivateMinerAPI(e *Elysium) *PrivateMinerAPI {
 	return &PrivateMinerAPI{e: e}
 }
 
@@ -147,15 +147,15 @@ func (api *PrivateMinerAPI) SetRecommitInterval(interval int) {
 	api.e.Miner().SetRecommitInterval(time.Duration(interval) * time.Millisecond)
 }
 
-// PrivateAdminAPI is the collection of Ethereum full node-related APIs
+// PrivateAdminAPI is the collection of Elysium full node-related APIs
 // exposed over the private admin endpoint.
 type PrivateAdminAPI struct {
-	eth *Ethereum
+	eth *Elysium
 }
 
 // NewPrivateAdminAPI creates a new API definition for the full node private
-// admin methods of the Ethereum service.
-func NewPrivateAdminAPI(eth *Ethereum) *PrivateAdminAPI {
+// admin methods of the Elysium service.
+func NewPrivateAdminAPI(eth *Elysium) *PrivateAdminAPI {
 	return &PrivateAdminAPI{eth: eth}
 }
 
@@ -257,15 +257,15 @@ func (api *PrivateAdminAPI) ImportChain(file string) (bool, error) {
 	return true, nil
 }
 
-// PublicDebugAPI is the collection of Ethereum full node APIs exposed
+// PublicDebugAPI is the collection of Elysium full node APIs exposed
 // over the public debugging endpoint.
 type PublicDebugAPI struct {
-	eth *Ethereum
+	eth *Elysium
 }
 
 // NewPublicDebugAPI creates a new API definition for the full node-
-// related public debug methods of the Ethereum service.
-func NewPublicDebugAPI(eth *Ethereum) *PublicDebugAPI {
+// related public debug methods of the Elysium service.
+func NewPublicDebugAPI(eth *Elysium) *PublicDebugAPI {
 	return &PublicDebugAPI{eth: eth}
 }
 
@@ -298,15 +298,15 @@ func (api *PublicDebugAPI) DumpBlock(blockNr rpc.BlockNumber) (state.Dump, error
 	return stateDb.RawDump(opts), nil
 }
 
-// PrivateDebugAPI is the collection of Ethereum full node APIs exposed over
+// PrivateDebugAPI is the collection of Elysium full node APIs exposed over
 // the private debugging endpoint.
 type PrivateDebugAPI struct {
-	eth *Ethereum
+	eth *Elysium
 }
 
 // NewPrivateDebugAPI creates a new API definition for the full node-related
-// private debug methods of the Ethereum service.
-func NewPrivateDebugAPI(eth *Ethereum) *PrivateDebugAPI {
+// private debug methods of the Elysium service.
+func NewPrivateDebugAPI(eth *Elysium) *PrivateDebugAPI {
 	return &PrivateDebugAPI{eth: eth}
 }
 

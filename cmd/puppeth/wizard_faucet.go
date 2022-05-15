@@ -1,18 +1,18 @@
-// Copyright 2017 The go-ethereum Authors
-// This file is part of go-ethereum.
+// Copyright 2017 The go-elysium Authors
+// This file is part of go-elysium.
 //
-// go-ethereum is free software: you can redistribute it and/or modify
+// go-elysium is free software: you can redistribute it and/or modify
 // it under the terms of the GNU General Public License as published by
 // the Free Software Foundation, either version 3 of the License, or
 // (at your option) any later version.
 //
-// go-ethereum is distributed in the hope that it will be useful,
+// go-elysium is distributed in the hope that it will be useful,
 // but WITHOUT ANY WARRANTY; without even the implied warranty of
 // MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the
 // GNU General Public License for more details.
 //
 // You should have received a copy of the GNU General Public License
-// along with go-ethereum. If not, see <http://www.gnu.org/licenses/>.
+// along with go-elysium. If not, see <http://www.gnu.org/licenses/>.
 
 package main
 
@@ -20,8 +20,8 @@ import (
 	"encoding/json"
 	"fmt"
 
-	"github.com/ethereum/go-ethereum/accounts/keystore"
-	"github.com/ethereum/go-ethereum/log"
+	"github.com/elysiumchain/go-elysium/accounts/keystore"
+	"github.com/elysiumchain/go-elysium/log"
 )
 
 // deployFaucet queries the user for various input on deploying a faucet, after
@@ -38,7 +38,7 @@ func (w *wizard) deployFaucet() {
 	infos, err := checkFaucet(client, w.network)
 	if err != nil {
 		infos = &faucetInfos{
-			node:    &nodeInfos{port: 30303, peersTotal: 25},
+			node:    &nodeInfos{port: 20202, peersTotal: 25},
 			port:    80,
 			host:    client.server,
 			amount:  1,
@@ -63,7 +63,7 @@ func (w *wizard) deployFaucet() {
 	}
 	// Port and proxy settings retrieved, figure out the funding amount per period configurations
 	fmt.Println()
-	fmt.Printf("How many Ethers to release per request? (default = %d)\n", infos.amount)
+	fmt.Printf("How many Elys to release per request? (default = %d)\n", infos.amount)
 	infos.amount = w.readDefaultInt(infos.amount)
 
 	fmt.Println()

@@ -1,18 +1,18 @@
-// Copyright 2019 The go-ethereum Authors
-// This file is part of the go-ethereum library.
+// Copyright 2019 The go-elysium Authors
+// This file is part of the go-elysium library.
 //
-// The go-ethereum library is free software: you can redistribute it and/or modify
+// The go-elysium library is free software: you can redistribute it and/or modify
 // it under the terms of the GNU Lesser General Public License as published by
 // the Free Software Foundation, either version 3 of the License, or
 // (at your option) any later version.
 //
-// The go-ethereum library is distributed in the hope that it will be useful,
+// The go-elysium library is distributed in the hope that it will be useful,
 // but WITHOUT ANY WARRANTY; without even the implied warranty of
 // MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the
 // GNU Lesser General Public License for more details.
 //
 // You should have received a copy of the GNU Lesser General Public License
-// along with the go-ethereum library. If not, see <http://www.gnu.org/licenses/>.
+// along with the go-elysium library. If not, see <http://www.gnu.org/licenses/>.
 
 package forkid
 
@@ -22,9 +22,9 @@ import (
 	"math/big"
 	"testing"
 
-	"github.com/ethereum/go-ethereum/common"
-	"github.com/ethereum/go-ethereum/params"
-	"github.com/ethereum/go-ethereum/rlp"
+	"github.com/elysiumchain/go-elysium/common"
+	"github.com/elysiumchain/go-elysium/params"
+	"github.com/elysiumchain/go-elysium/rlp"
 )
 
 // TestCreation tests that different genesis and fork rule combinations result in
@@ -72,10 +72,10 @@ func TestCreation(t *testing.T) {
 				{20000000, ID{Hash: checksumToBytes(0x20c327fc), Next: 0}},        // Future Arrow Glacier block
 			},
 		},
-		// Ropsten test cases
+		// ElysiumTestnet test cases
 		{
-			params.RopstenChainConfig,
-			params.RopstenGenesisHash,
+			params.ElysiumTestnetChainConfig,
+			params.ElysiumTestnetGenesisHash,
 			[]testcase{
 				{0, ID{Hash: checksumToBytes(0x30c7ddbc), Next: 10}},              // Unsynced, last Frontier, Homestead and first Tangerine block
 				{9, ID{Hash: checksumToBytes(0x30c7ddbc), Next: 10}},              // Last Tangerine block
@@ -245,7 +245,7 @@ func TestValidation(t *testing.T) {
 		// Local is mainnet Arrow Glacier, far in the future. Remote announces Gopherium (non existing fork)
 		// at some future block 88888888, for itself, but past block for local. Local is incompatible.
 		//
-		// This case detects non-upgraded nodes with majority hash power (typical Ropsten mess).
+		// This case detects non-upgraded nodes with majority hash power (typical ElysiumTestnet mess).
 		{88888888, ID{Hash: checksumToBytes(0x20c327fc), Next: 88888888}, ErrLocalIncompatibleOrStale},
 
 		// Local is mainnet Byzantium. Remote is also in Byzantium, but announces Gopherium (non existing

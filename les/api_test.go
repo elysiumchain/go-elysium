@@ -1,18 +1,18 @@
-// Copyright 2019 The go-ethereum Authors
-// This file is part of the go-ethereum library.
+// Copyright 2019 The go-elysium Authors
+// This file is part of the go-elysium library.
 //
-// The go-ethereum library is free software: you can redistribute it and/or modify
+// The go-elysium library is free software: you can redistribute it and/or modify
 // it under the terms of the GNU Lesser General Public License as published by
 // the Free Software Foundation, either version 3 of the License, or
 // (at your option) any later version.
 //
-// The go-ethereum library is distributed in the hope that it will be useful,
+// The go-elysium library is distributed in the hope that it will be useful,
 // but WITHOUT ANY WARRANTY; without even the implied warranty of
 // MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the
 // GNU Lesser General Public License for more details.
 //
 // You should have received a copy of the GNU Lesser General Public License
-// along with the go-ethereum library. If not, see <http://www.gnu.org/licenses/>.
+// along with the go-elysium library. If not, see <http://www.gnu.org/licenses/>.
 
 package les
 
@@ -28,20 +28,20 @@ import (
 	"testing"
 	"time"
 
-	"github.com/ethereum/go-ethereum/common"
-	"github.com/ethereum/go-ethereum/common/hexutil"
-	"github.com/ethereum/go-ethereum/consensus/ethash"
-	"github.com/ethereum/go-ethereum/eth"
-	ethdownloader "github.com/ethereum/go-ethereum/eth/downloader"
-	"github.com/ethereum/go-ethereum/eth/ethconfig"
-	"github.com/ethereum/go-ethereum/les/downloader"
-	"github.com/ethereum/go-ethereum/les/flowcontrol"
-	"github.com/ethereum/go-ethereum/log"
-	"github.com/ethereum/go-ethereum/node"
-	"github.com/ethereum/go-ethereum/p2p/enode"
-	"github.com/ethereum/go-ethereum/p2p/simulations"
-	"github.com/ethereum/go-ethereum/p2p/simulations/adapters"
-	"github.com/ethereum/go-ethereum/rpc"
+	"github.com/elysiumchain/go-elysium/common"
+	"github.com/elysiumchain/go-elysium/common/hexutil"
+	"github.com/elysiumchain/go-elysium/consensus/ethash"
+	"github.com/elysiumchain/go-elysium/eth"
+	ethdownloader "github.com/elysiumchain/go-elysium/eth/downloader"
+	"github.com/elysiumchain/go-elysium/eth/ethconfig"
+	"github.com/elysiumchain/go-elysium/les/downloader"
+	"github.com/elysiumchain/go-elysium/les/flowcontrol"
+	"github.com/elysiumchain/go-elysium/log"
+	"github.com/elysiumchain/go-elysium/node"
+	"github.com/elysiumchain/go-elysium/p2p/enode"
+	"github.com/elysiumchain/go-elysium/p2p/simulations"
+	"github.com/elysiumchain/go-elysium/p2p/simulations/adapters"
+	"github.com/elysiumchain/go-elysium/rpc"
 	"github.com/mattn/go-colorable"
 )
 
@@ -505,13 +505,13 @@ func newLesServerService(ctx *adapters.ServiceContext, stack *node.Node) (node.L
 	config.SyncMode = (ethdownloader.SyncMode)(downloader.FullSync)
 	config.LightServ = testServerCapacity
 	config.LightPeers = testMaxClients
-	ethereum, err := eth.New(stack, &config)
+	elysium, err := eth.New(stack, &config)
 	if err != nil {
 		return nil, err
 	}
-	_, err = NewLesServer(stack, ethereum, &config)
+	_, err = NewLesServer(stack, elysium, &config)
 	if err != nil {
 		return nil, err
 	}
-	return ethereum, nil
+	return elysium, nil
 }

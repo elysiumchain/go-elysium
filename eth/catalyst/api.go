@@ -1,18 +1,18 @@
-// Copyright 2020 The go-ethereum Authors
-// This file is part of the go-ethereum library.
+// Copyright 2020 The go-elysium Authors
+// This file is part of the go-elysium library.
 //
-// The go-ethereum library is free software: you can redistribute it and/or modify
+// The go-elysium library is free software: you can redistribute it and/or modify
 // it under the terms of the GNU Lesser General Public License as published by
 // the Free Software Foundation, either version 3 of the License, or
 // (at your option) any later version.
 //
-// The go-ethereum library is distributed in the hope that it will be useful,
+// The go-elysium library is distributed in the hope that it will be useful,
 // but WITHOUT ANY WARRANTY; without even the implied warranty of
 // MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the
 // GNU Lesser General Public License for more details.
 //
 // You should have received a copy of the GNU Lesser General Public License
-// along with the go-ethereum library. If not, see <http://www.gnu.org/licenses/>.
+// along with the go-elysium library. If not, see <http://www.gnu.org/licenses/>.
 
 // Package catalyst implements the temporary eth1/eth2 RPC integration.
 package catalyst
@@ -24,19 +24,19 @@ import (
 	"fmt"
 	"time"
 
-	"github.com/ethereum/go-ethereum/common"
-	"github.com/ethereum/go-ethereum/common/hexutil"
-	"github.com/ethereum/go-ethereum/core/beacon"
-	"github.com/ethereum/go-ethereum/core/rawdb"
-	"github.com/ethereum/go-ethereum/core/types"
-	"github.com/ethereum/go-ethereum/eth"
-	"github.com/ethereum/go-ethereum/log"
-	"github.com/ethereum/go-ethereum/node"
-	"github.com/ethereum/go-ethereum/rpc"
+	"github.com/elysiumchain/go-elysium/common"
+	"github.com/elysiumchain/go-elysium/common/hexutil"
+	"github.com/elysiumchain/go-elysium/core/beacon"
+	"github.com/elysiumchain/go-elysium/core/rawdb"
+	"github.com/elysiumchain/go-elysium/core/types"
+	"github.com/elysiumchain/go-elysium/eth"
+	"github.com/elysiumchain/go-elysium/log"
+	"github.com/elysiumchain/go-elysium/node"
+	"github.com/elysiumchain/go-elysium/rpc"
 )
 
 // Register adds catalyst APIs to the full node.
-func Register(stack *node.Node, backend *eth.Ethereum) error {
+func Register(stack *node.Node, backend *eth.Elysium) error {
 	log.Warn("Catalyst mode enabled", "protocol", "eth")
 	stack.RegisterAPIs([]rpc.API{
 		{
@@ -58,14 +58,14 @@ func Register(stack *node.Node, backend *eth.Ethereum) error {
 }
 
 type ConsensusAPI struct {
-	eth          *eth.Ethereum
+	eth          *eth.Elysium
 	remoteBlocks *headerQueue  // Cache of remote payloads received
 	localBlocks  *payloadQueue // Cache of local payloads generated
 }
 
 // NewConsensusAPI creates a new consensus api for the given backend.
 // The underlying blockchain needs to have a valid terminal total difficulty set.
-func NewConsensusAPI(eth *eth.Ethereum) *ConsensusAPI {
+func NewConsensusAPI(eth *eth.Elysium) *ConsensusAPI {
 	if eth.BlockChain().Config().TerminalTotalDifficulty == nil {
 		panic("Catalyst started without valid total difficulty")
 	}
@@ -216,7 +216,7 @@ func (api *ConsensusAPI) ExchangeTransitionConfigurationV1(config beacon.Transit
 	}
 	ttd := api.eth.BlockChain().Config().TerminalTotalDifficulty
 	if ttd.Cmp(config.TerminalTotalDifficulty.ToInt()) != 0 {
-		log.Warn("Invalid TTD configured", "geth", ttd, "beacon", config.TerminalTotalDifficulty)
+		log.Warn("Invalid TTD configured", "gely", ttd, "beacon", config.TerminalTotalDifficulty)
 		return nil, fmt.Errorf("invalid ttd: execution %v consensus %v", ttd, config.TerminalTotalDifficulty)
 	}
 

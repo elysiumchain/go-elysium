@@ -1,18 +1,18 @@
-// Copyright 2017 The go-ethereum Authors
-// This file is part of the go-ethereum library.
+// Copyright 2017 The go-elysium Authors
+// This file is part of the go-elysium library.
 //
-// The go-ethereum library is free software: you can redistribute it and/or modify
+// The go-elysium library is free software: you can redistribute it and/or modify
 // it under the terms of the GNU Lesser General Public License as published by
 // the Free Software Foundation, either version 3 of the License, or
 // (at your option) any later version.
 //
-// The go-ethereum library is distributed in the hope that it will be useful,
+// The go-elysium library is distributed in the hope that it will be useful,
 // but WITHOUT ANY WARRANTY; without even the implied warranty of
 // MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the
 // GNU Lesser General Public License for more details.
 //
 // You should have received a copy of the GNU Lesser General Public License
-// along with the go-ethereum library. If not, see <http://www.gnu.org/licenses/>.
+// along with the go-elysium library. If not, see <http://www.gnu.org/licenses/>.
 
 // Package ethconfig contains the configuration of the ETH and LES protocols.
 package ethconfig
@@ -25,19 +25,19 @@ import (
 	"runtime"
 	"time"
 
-	"github.com/ethereum/go-ethereum/common"
-	"github.com/ethereum/go-ethereum/consensus"
-	"github.com/ethereum/go-ethereum/consensus/beacon"
-	"github.com/ethereum/go-ethereum/consensus/clique"
-	"github.com/ethereum/go-ethereum/consensus/ethash"
-	"github.com/ethereum/go-ethereum/core"
-	"github.com/ethereum/go-ethereum/eth/downloader"
-	"github.com/ethereum/go-ethereum/eth/gasprice"
-	"github.com/ethereum/go-ethereum/ethdb"
-	"github.com/ethereum/go-ethereum/log"
-	"github.com/ethereum/go-ethereum/miner"
-	"github.com/ethereum/go-ethereum/node"
-	"github.com/ethereum/go-ethereum/params"
+	"github.com/elysiumchain/go-elysium/common"
+	"github.com/elysiumchain/go-elysium/consensus"
+	"github.com/elysiumchain/go-elysium/consensus/beacon"
+	"github.com/elysiumchain/go-elysium/consensus/clique"
+	"github.com/elysiumchain/go-elysium/consensus/ethash"
+	"github.com/elysiumchain/go-elysium/core"
+	"github.com/elysiumchain/go-elysium/eth/downloader"
+	"github.com/elysiumchain/go-elysium/eth/gasprice"
+	"github.com/elysiumchain/go-elysium/ethdb"
+	"github.com/elysiumchain/go-elysium/log"
+	"github.com/elysiumchain/go-elysium/miner"
+	"github.com/elysiumchain/go-elysium/node"
+	"github.com/elysiumchain/go-elysium/params"
 )
 
 // FullNodeGPO contains default gasprice oracle settings for full node.
@@ -60,7 +60,7 @@ var LightClientGPO = gasprice.Config{
 	IgnorePrice:      gasprice.DefaultIgnorePrice,
 }
 
-// Defaults contains default settings for use on the Ethereum main net.
+// Defaults contains default settings for use on the Elysium main net.
 var Defaults = Config{
 	SyncMode: downloader.SnapSync,
 	Ethash: ethash.Config{
@@ -72,7 +72,7 @@ var Defaults = Config{
 		DatasetsOnDisk:   2,
 		DatasetsLockMmap: false,
 	},
-	NetworkId:               1,
+	NetworkId:               2022,
 	TxLookupLimit:           2350000,
 	LightPeers:              100,
 	UltraLightFraction:      75,
@@ -92,7 +92,7 @@ var Defaults = Config{
 	RPCGasCap:     50000000,
 	RPCEVMTimeout: 5 * time.Second,
 	GPO:           FullNodeGPO,
-	RPCTxFeeCap:   1, // 1 ether
+	RPCTxFeeCap:   1, // 1 ely
 }
 
 func init() {
@@ -121,7 +121,7 @@ func init() {
 // Config contains configuration options for of the ETH and LES protocols.
 type Config struct {
 	// The genesis block, which is inserted if the database is empty.
-	// If nil, the Ethereum main net block is used.
+	// If nil, the Elysium main net block is used.
 	Genesis *core.Genesis `toml:",omitempty"`
 
 	// Protocol options
@@ -139,7 +139,7 @@ type Config struct {
 	TxLookupLimit uint64 `toml:",omitempty"` // The maximum number of blocks from head whose tx indices are reserved.
 
 	// PeerRequiredBlocks is a set of block number -> hash mappings which must be in the
-	// canonical chain of all remote peers. Setting the option makes geth verify the
+	// canonical chain of all remote peers. Setting the option makes gely verify the
 	// presence of these blocks for every new peer connection.
 	PeerRequiredBlocks map[uint64]common.Hash `toml:"-"`
 
@@ -196,7 +196,7 @@ type Config struct {
 	RPCEVMTimeout time.Duration
 
 	// RPCTxFeeCap is the global transaction fee(price * gaslimit) cap for
-	// send-transction variants. The unit is ether.
+	// send-transction variants. The unit is ely.
 	RPCTxFeeCap float64
 
 	// Checkpoint is a hardcoded checkpoint which can be nil.

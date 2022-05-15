@@ -1,18 +1,18 @@
-// Copyright 2019 The go-ethereum Authors
-// This file is part of go-ethereum.
+// Copyright 2019 The go-elysium Authors
+// This file is part of go-elysium.
 //
-// go-ethereum is free software: you can redistribute it and/or modify
+// go-elysium is free software: you can redistribute it and/or modify
 // it under the terms of the GNU General Public License as published by
 // the Free Software Foundation, either version 3 of the License, or
 // (at your option) any later version.
 //
-// go-ethereum is distributed in the hope that it will be useful,
+// go-elysium is distributed in the hope that it will be useful,
 // but WITHOUT ANY WARRANTY; without even the implied warranty of
 // MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the
 // GNU General Public License for more details.
 //
 // You should have received a copy of the GNU General Public License
-// along with go-ethereum. If not, see <http://www.gnu.org/licenses/>.
+// along with go-elysium. If not, see <http://www.gnu.org/licenses/>.
 
 package main
 
@@ -25,10 +25,10 @@ import (
 	"strings"
 	"time"
 
-	"github.com/ethereum/go-ethereum/core/forkid"
-	"github.com/ethereum/go-ethereum/p2p/enr"
-	"github.com/ethereum/go-ethereum/params"
-	"github.com/ethereum/go-ethereum/rlp"
+	"github.com/elysiumchain/go-elysium/core/forkid"
+	"github.com/elysiumchain/go-elysium/p2p/enr"
+	"github.com/elysiumchain/go-elysium/params"
+	"github.com/elysiumchain/go-elysium/rlp"
 	"gopkg.in/urfave/cli.v1"
 )
 
@@ -233,8 +233,8 @@ func ethFilter(args []string) (nodeFilter, error) {
 		filter = forkid.NewStaticFilter(params.RinkebyChainConfig, params.RinkebyGenesisHash)
 	case "goerli":
 		filter = forkid.NewStaticFilter(params.GoerliChainConfig, params.GoerliGenesisHash)
-	case "ropsten":
-		filter = forkid.NewStaticFilter(params.RopstenChainConfig, params.RopstenGenesisHash)
+	case "elysiumTestnet":
+		filter = forkid.NewStaticFilter(params.ElysiumTestnetChainConfig, params.ElysiumTestnetGenesisHash)
 	case "sepolia":
 		filter = forkid.NewStaticFilter(params.SepoliaChainConfig, params.SepoliaGenesisHash)
 	default:

@@ -1,18 +1,18 @@
-// Copyright 2016 The go-ethereum Authors
-// This file is part of go-ethereum.
+// Copyright 2016 The go-elysium Authors
+// This file is part of go-elysium.
 //
-// go-ethereum is free software: you can redistribute it and/or modify
+// go-elysium is free software: you can redistribute it and/or modify
 // it under the terms of the GNU General Public License as published by
 // the Free Software Foundation, either version 3 of the License, or
 // (at your option) any later version.
 //
-// go-ethereum is distributed in the hope that it will be useful,
+// go-elysium is distributed in the hope that it will be useful,
 // but WITHOUT ANY WARRANTY; without even the implied warranty of
 // MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the
 // GNU General Public License for more details.
 //
 // You should have received a copy of the GNU General Public License
-// along with go-ethereum. If not, see <http://www.gnu.org/licenses/>.
+// along with go-elysium. If not, see <http://www.gnu.org/licenses/>.
 
 package main
 
@@ -25,13 +25,13 @@ import (
 	"regexp"
 	"strings"
 
-	"github.com/ethereum/go-ethereum/accounts/abi"
-	"github.com/ethereum/go-ethereum/accounts/abi/bind"
-	"github.com/ethereum/go-ethereum/cmd/utils"
-	"github.com/ethereum/go-ethereum/common/compiler"
-	"github.com/ethereum/go-ethereum/crypto"
-	"github.com/ethereum/go-ethereum/internal/flags"
-	"github.com/ethereum/go-ethereum/log"
+	"github.com/elysiumchain/go-elysium/accounts/abi"
+	"github.com/elysiumchain/go-elysium/accounts/abi/bind"
+	"github.com/elysiumchain/go-elysium/cmd/utils"
+	"github.com/elysiumchain/go-elysium/common/compiler"
+	"github.com/elysiumchain/go-elysium/crypto"
+	"github.com/elysiumchain/go-elysium/internal/flags"
+	"github.com/elysiumchain/go-elysium/log"
 	"gopkg.in/urfave/cli.v1"
 )
 
@@ -45,11 +45,11 @@ var (
 	// Flags needed by abigen
 	abiFlag = cli.StringFlag{
 		Name:  "abi",
-		Usage: "Path to the Ethereum contract ABI json to bind, - for STDIN",
+		Usage: "Path to the Elysium contract ABI json to bind, - for STDIN",
 	}
 	binFlag = cli.StringFlag{
 		Name:  "bin",
-		Usage: "Path to the Ethereum contract bytecode (generate deploy method)",
+		Usage: "Path to the Elysium contract bytecode (generate deploy method)",
 	}
 	typeFlag = cli.StringFlag{
 		Name:  "type",
@@ -61,7 +61,7 @@ var (
 	}
 	solFlag = cli.StringFlag{
 		Name:  "sol",
-		Usage: "Path to the Ethereum contract Solidity source to build and bind",
+		Usage: "Path to the Elysium contract Solidity source to build and bind",
 	}
 	solcFlag = cli.StringFlag{
 		Name:  "solc",
@@ -70,7 +70,7 @@ var (
 	}
 	vyFlag = cli.StringFlag{
 		Name:  "vy",
-		Usage: "Path to the Ethereum contract Vyper source to build and bind",
+		Usage: "Path to the Elysium contract Vyper source to build and bind",
 	}
 	vyperFlag = cli.StringFlag{
 		Name:  "vyper",
@@ -101,7 +101,7 @@ var (
 )
 
 func init() {
-	app = flags.NewApp(gitCommit, gitDate, "ethereum checkpoint helper tool")
+	app = flags.NewApp(gitCommit, gitDate, "elysium checkpoint helper tool")
 	app.Flags = []cli.Flag{
 		abiFlag,
 		binFlag,

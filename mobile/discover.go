@@ -1,28 +1,28 @@
-// Copyright 2016 The go-ethereum Authors
-// This file is part of the go-ethereum library.
+// Copyright 2016 The go-elysium Authors
+// This file is part of the go-elysium library.
 //
-// The go-ethereum library is free software: you can redistribute it and/or modify
+// The go-elysium library is free software: you can redistribute it and/or modify
 // it under the terms of the GNU Lesser General Public License as published by
 // the Free Software Foundation, either version 3 of the License, or
 // (at your option) any later version.
 //
-// The go-ethereum library is distributed in the hope that it will be useful,
+// The go-elysium library is distributed in the hope that it will be useful,
 // but WITHOUT ANY WARRANTY; without even the implied warranty of
 // MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the
 // GNU Lesser General Public License for more details.
 //
 // You should have received a copy of the GNU Lesser General Public License
-// along with the go-ethereum library. If not, see <http://www.gnu.org/licenses/>.
+// along with the go-elysium library. If not, see <http://www.gnu.org/licenses/>.
 
 // Contains all the wrappers from the accounts package to support client side enode
 // management on mobile platforms.
 
-package geth
+package gely
 
 import (
 	"errors"
 
-	"github.com/ethereum/go-ethereum/p2p/enode"
+	"github.com/elysiumchain/go-elysium/p2p/enode"
 )
 
 // Enode represents a host on the network.
@@ -49,10 +49,10 @@ type Enode struct {
 // query parameter "discport".
 //
 // In the following example, the node URL describes
-// a node with IP address 10.3.58.6, TCP listening port 30303
+// a node with IP address 10.3.58.6, TCP listening port 20202
 // and UDP discovery port 30301.
 //
-//    enode://<hex node id>@10.3.58.6:30303?discport=30301
+//    enode://<hex node id>@10.3.58.6:20202?discport=30301
 func NewEnode(rawurl string) (*Enode, error) {
 	node, err := enode.Parse(enode.ValidSchemes, rawurl)
 	if err != nil {

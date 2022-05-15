@@ -1,27 +1,27 @@
-// Copyright 2020 The go-ethereum Authors
-// This file is part of go-ethereum.
+// Copyright 2020 The go-elysium Authors
+// This file is part of go-elysium.
 //
-// go-ethereum is free software: you can redistribute it and/or modify
+// go-elysium is free software: you can redistribute it and/or modify
 // it under the terms of the GNU General Public License as published by
 // the Free Software Foundation, either version 3 of the License, or
 // (at your option) any later version.
 //
-// go-ethereum is distributed in the hope that it will be useful,
+// go-elysium is distributed in the hope that it will be useful,
 // but WITHOUT ANY WARRANTY; without even the implied warranty of
 // MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the
 // GNU General Public License for more details.
 //
 // You should have received a copy of the GNU General Public License
-// along with go-ethereum. If not, see <http://www.gnu.org/licenses/>.
+// along with go-elysium. If not, see <http://www.gnu.org/licenses/>.
 
 package main
 
 import (
 	"os"
 
-	"github.com/ethereum/go-ethereum/cmd/devp2p/internal/v4test"
-	"github.com/ethereum/go-ethereum/internal/utesting"
-	"github.com/ethereum/go-ethereum/log"
+	"github.com/elysiumchain/go-elysium/cmd/devp2p/internal/v4test"
+	"github.com/elysiumchain/go-elysium/internal/utesting"
+	"github.com/elysiumchain/go-elysium/log"
 	"gopkg.in/urfave/cli.v1"
 )
 

@@ -1,56 +1,56 @@
-// Copyright 2016 The go-ethereum Authors
-// This file is part of the go-ethereum library.
+// Copyright 2016 The go-elysium Authors
+// This file is part of the go-elysium library.
 //
-// The go-ethereum library is free software: you can redistribute it and/or modify
+// The go-elysium library is free software: you can redistribute it and/or modify
 // it under the terms of the GNU Lesser General Public License as published by
 // the Free Software Foundation, either version 3 of the License, or
 // (at your option) any later version.
 //
-// The go-ethereum library is distributed in the hope that it will be useful,
+// The go-elysium library is distributed in the hope that it will be useful,
 // but WITHOUT ANY WARRANTY; without even the implied warranty of
 // MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the
 // GNU Lesser General Public License for more details.
 //
 // You should have received a copy of the GNU Lesser General Public License
-// along with the go-ethereum library. If not, see <http://www.gnu.org/licenses/>.
+// along with the go-elysium library. If not, see <http://www.gnu.org/licenses/>.
 
-// Package les implements the Light Ethereum Subprotocol.
+// Package les implements the Light Elysium Subprotocol.
 package les
 
 import (
 	"fmt"
 	"time"
 
-	"github.com/ethereum/go-ethereum/accounts"
-	"github.com/ethereum/go-ethereum/common"
-	"github.com/ethereum/go-ethereum/common/hexutil"
-	"github.com/ethereum/go-ethereum/common/mclock"
-	"github.com/ethereum/go-ethereum/consensus"
-	"github.com/ethereum/go-ethereum/core"
-	"github.com/ethereum/go-ethereum/core/bloombits"
-	"github.com/ethereum/go-ethereum/core/rawdb"
-	"github.com/ethereum/go-ethereum/core/types"
-	"github.com/ethereum/go-ethereum/eth/ethconfig"
-	"github.com/ethereum/go-ethereum/eth/filters"
-	"github.com/ethereum/go-ethereum/eth/gasprice"
-	"github.com/ethereum/go-ethereum/event"
-	"github.com/ethereum/go-ethereum/internal/ethapi"
-	"github.com/ethereum/go-ethereum/internal/shutdowncheck"
-	"github.com/ethereum/go-ethereum/les/downloader"
-	"github.com/ethereum/go-ethereum/les/vflux"
-	vfc "github.com/ethereum/go-ethereum/les/vflux/client"
-	"github.com/ethereum/go-ethereum/light"
-	"github.com/ethereum/go-ethereum/log"
-	"github.com/ethereum/go-ethereum/node"
-	"github.com/ethereum/go-ethereum/p2p"
-	"github.com/ethereum/go-ethereum/p2p/enode"
-	"github.com/ethereum/go-ethereum/p2p/enr"
-	"github.com/ethereum/go-ethereum/params"
-	"github.com/ethereum/go-ethereum/rlp"
-	"github.com/ethereum/go-ethereum/rpc"
+	"github.com/elysiumchain/go-elysium/accounts"
+	"github.com/elysiumchain/go-elysium/common"
+	"github.com/elysiumchain/go-elysium/common/hexutil"
+	"github.com/elysiumchain/go-elysium/common/mclock"
+	"github.com/elysiumchain/go-elysium/consensus"
+	"github.com/elysiumchain/go-elysium/core"
+	"github.com/elysiumchain/go-elysium/core/bloombits"
+	"github.com/elysiumchain/go-elysium/core/rawdb"
+	"github.com/elysiumchain/go-elysium/core/types"
+	"github.com/elysiumchain/go-elysium/eth/ethconfig"
+	"github.com/elysiumchain/go-elysium/eth/filters"
+	"github.com/elysiumchain/go-elysium/eth/gasprice"
+	"github.com/elysiumchain/go-elysium/event"
+	"github.com/elysiumchain/go-elysium/internal/ethapi"
+	"github.com/elysiumchain/go-elysium/internal/shutdowncheck"
+	"github.com/elysiumchain/go-elysium/les/downloader"
+	"github.com/elysiumchain/go-elysium/les/vflux"
+	vfc "github.com/elysiumchain/go-elysium/les/vflux/client"
+	"github.com/elysiumchain/go-elysium/light"
+	"github.com/elysiumchain/go-elysium/log"
+	"github.com/elysiumchain/go-elysium/node"
+	"github.com/elysiumchain/go-elysium/p2p"
+	"github.com/elysiumchain/go-elysium/p2p/enode"
+	"github.com/elysiumchain/go-elysium/p2p/enr"
+	"github.com/elysiumchain/go-elysium/params"
+	"github.com/elysiumchain/go-elysium/rlp"
+	"github.com/elysiumchain/go-elysium/rpc"
 )
 
-type LightEthereum struct {
+type LightElysium struct {
 	lesCommons
 
 	peers              *serverPeerSet
@@ -83,7 +83,7 @@ type LightEthereum struct {
 }
 
 // New creates an instance of the light client.
-func New(stack *node.Node, config *ethconfig.Config) (*LightEthereum, error) {
+func New(stack *node.Node, config *ethconfig.Config) (*LightElysium, error) {
 	chainDb, err := stack.OpenDatabase("lightchaindata", config.DatabaseCache, config.DatabaseHandles, "eth/db/chaindata/", false)
 	if err != nil {
 		return nil, err
@@ -100,7 +100,7 @@ func New(stack *node.Node, config *ethconfig.Config) (*LightEthereum, error) {
 
 	peers := newServerPeerSet()
 	merger := consensus.NewMerger(chainDb)
-	leth := &LightEthereum{
+	leth := &LightElysium{
 		lesCommons: lesCommons{
 			genesis:     genesisHash,
 			config:      config,
@@ -196,7 +196,7 @@ func New(stack *node.Node, config *ethconfig.Config) (*LightEthereum, error) {
 }
 
 // VfluxRequest sends a batch of requests to the given node through discv5 UDP TalkRequest and returns the responses
-func (s *LightEthereum) VfluxRequest(n *enode.Node, reqs vflux.Requests) vflux.Replies {
+func (s *LightElysium) VfluxRequest(n *enode.Node, reqs vflux.Requests) vflux.Replies {
 	if !s.udpEnabled {
 		return nil
 	}
@@ -211,7 +211,7 @@ func (s *LightEthereum) VfluxRequest(n *enode.Node, reqs vflux.Requests) vflux.R
 
 // vfxVersion returns the version number of the "les" service subdomain of the vflux UDP
 // service, as advertised in the ENR record
-func (s *LightEthereum) vfxVersion(n *enode.Node) uint {
+func (s *LightElysium) vfxVersion(n *enode.Node) uint {
 	if n.Seq() == 0 {
 		var err error
 		if !s.udpEnabled {
@@ -235,7 +235,7 @@ func (s *LightEthereum) vfxVersion(n *enode.Node) uint {
 
 // prenegQuery sends a capacity query to the given server node to determine whether
 // a connection slot is immediately available
-func (s *LightEthereum) prenegQuery(n *enode.Node) int {
+func (s *LightElysium) prenegQuery(n *enode.Node) int {
 	if s.vfxVersion(n) < 1 {
 		// UDP query not supported, always try TCP connection
 		return 1
@@ -279,9 +279,9 @@ func (s *LightDummyAPI) Mining() bool {
 	return false
 }
 
-// APIs returns the collection of RPC services the ethereum package offers.
+// APIs returns the collection of RPC services the elysium package offers.
 // NOTE, some of these services probably need to be moved to somewhere else.
-func (s *LightEthereum) APIs() []rpc.API {
+func (s *LightElysium) APIs() []rpc.API {
 	apis := ethapi.GetAPIs(s.ApiBackend)
 	apis = append(apis, s.engine.APIs(s.BlockChain().HeaderChain())...)
 	return append(apis, []rpc.API{
@@ -319,20 +319,20 @@ func (s *LightEthereum) APIs() []rpc.API {
 	}...)
 }
 
-func (s *LightEthereum) ResetWithGenesisBlock(gb *types.Block) {
+func (s *LightElysium) ResetWithGenesisBlock(gb *types.Block) {
 	s.blockchain.ResetWithGenesisBlock(gb)
 }
 
-func (s *LightEthereum) BlockChain() *light.LightChain      { return s.blockchain }
-func (s *LightEthereum) TxPool() *light.TxPool              { return s.txPool }
-func (s *LightEthereum) Engine() consensus.Engine           { return s.engine }
-func (s *LightEthereum) LesVersion() int                    { return int(ClientProtocolVersions[0]) }
-func (s *LightEthereum) Downloader() *downloader.Downloader { return s.handler.downloader }
-func (s *LightEthereum) EventMux() *event.TypeMux           { return s.eventMux }
-func (s *LightEthereum) Merger() *consensus.Merger          { return s.merger }
+func (s *LightElysium) BlockChain() *light.LightChain      { return s.blockchain }
+func (s *LightElysium) TxPool() *light.TxPool              { return s.txPool }
+func (s *LightElysium) Engine() consensus.Engine           { return s.engine }
+func (s *LightElysium) LesVersion() int                    { return int(ClientProtocolVersions[0]) }
+func (s *LightElysium) Downloader() *downloader.Downloader { return s.handler.downloader }
+func (s *LightElysium) EventMux() *event.TypeMux           { return s.eventMux }
+func (s *LightElysium) Merger() *consensus.Merger          { return s.merger }
 
 // Protocols returns all the currently configured network protocols to start.
-func (s *LightEthereum) Protocols() []p2p.Protocol {
+func (s *LightElysium) Protocols() []p2p.Protocol {
 	return s.makeProtocols(ClientProtocolVersions, s.handler.runPeer, func(id enode.ID) interface{} {
 		if p := s.peers.peer(id.String()); p != nil {
 			return p.Info()
@@ -342,8 +342,8 @@ func (s *LightEthereum) Protocols() []p2p.Protocol {
 }
 
 // Start implements node.Lifecycle, starting all internal goroutines needed by the
-// light ethereum protocol implementation.
-func (s *LightEthereum) Start() error {
+// light elysium protocol implementation.
+func (s *LightElysium) Start() error {
 	log.Warn("Light client mode is an experimental feature")
 
 	// Regularly update shutdown marker
@@ -368,8 +368,8 @@ func (s *LightEthereum) Start() error {
 }
 
 // Stop implements node.Lifecycle, terminating all internal goroutines used by the
-// Ethereum protocol.
-func (s *LightEthereum) Stop() error {
+// Elysium protocol.
+func (s *LightElysium) Stop() error {
 	close(s.closeCh)
 	s.serverPool.Stop()
 	s.peers.close()
@@ -390,6 +390,6 @@ func (s *LightEthereum) Stop() error {
 	s.chainDb.Close()
 	s.lesDb.Close()
 	s.wg.Wait()
-	log.Info("Light ethereum stopped")
+	log.Info("Light elysium stopped")
 	return nil
 }
