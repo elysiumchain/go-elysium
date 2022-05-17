@@ -452,7 +452,7 @@ func DefaultElysiumTestnetGenesisBlock() *Genesis {
 		Nonce:      66,
 		ExtraData:  hexutil.MustDecode("0x3535353535353535353535353535353535353535353535353535353535353535"),
 		GasLimit:   16777216,
-		Difficulty: big.NewInt(1217986918),
+		Difficulty: big.NewInt(1048576),
 		Alloc:      decodePrealloc(elysiumTestnetAllocData),
 	}
 }
