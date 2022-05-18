@@ -27,7 +27,13 @@ var MainnetBootnodes = []string{
 // ElysiumTestnetBootnodes are the enode URLs of the P2P bootstrap nodes running on the
 // ElysiumTestnet test network.
 var ElysiumTestnetBootnodes = []string{
-	// elixir's node
+	// AWS bootnode
+	"enode://ab9eee973d818a81474d16e1ec8194b0ae1e4e2bdf3fdf091a6c45f9d460f46827e0d161ecb24e9e004cc370a811178f32555860e467428909e9a2752aab2d58@15.164.246.71:20202",
+
+	// YJ node
+	"enode://7f433d8e6e4c2e07ff575b63f66ea85a6a2db108ee4cee93ce87fb7a6a923f17b2dd6894db926723aacaa040790cef2b323be108a61d1b9dfd8668875303f78b@203.229.158.227:20202",
+
+	// Elixir node
 	"enode://892658ad7f9aacf72fe2dac0d8eda914e58ee474b656eaa81d883ae3ed55b9df598c77a131b3620f3eb399915075bf12bcecd205426bcb41a17050674816d60c@112.159.68.43:20202",
 }
 
